@@ -4,7 +4,10 @@
  * @file main.cpp
  */
 
-int main(void)
+// System includes
+#include <cstdint>
+
+int32_t main(void)
 {
 	return 0;
 }
