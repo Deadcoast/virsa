@@ -1,13 +1,44 @@
-#! /bin/bash
+#!/bin/bash
 #
 # Sets up cmake within the build directory on linux
 
-# Remove the existing build directory
-rm -rf build/
+# Configuration for build (debug, release, etc).
+BUILD_TYPE=""
+BUILD_PATH="./build"
 
-# Re-create the build directory from scratch
-mkdir build/
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -d|--debug)
+            BUILD_TYPE="debug"
+            shift # past argument
+            ;;
+        -r|--release)
+            BUILD_TYPE="release"
+            shift # past argument
+            ;;
+    esac
+done
 
-cd build/
-cmake ..
-cd ..
+# Append the build type to the build directory path
+BUILD_PATH+="/${BUILD_TYPE}"
+
+# Ensure a valid build type was specified
+if [ "${BUILD_TYPE}" = "" ]; then
+    echo "Specify build type:"
+    echo "-d | --debug"
+    echo "-r | --release"
+    exit 1
+fi
+
+# Delete the build directory (if one exists)
+if [ -f ${BUILD_PATH} ]; then
+    rm -rf ${BUILD_PATH}
+fi
+
+echo "${BUILD_PATH}"
+
+# Generate the build files
+cmake -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" -B ${BUILD_PATH}
+
+exit 0
