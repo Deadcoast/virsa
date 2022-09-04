@@ -4,10 +4,13 @@
  * @file main.cpp
  */
 
-// System includes
+// System include
 #include <cstdint>
+#include <cstdio>
 
-int32_t main(void)
+int32_t main(int32_t argc, char **argv)
 {
-	return 0;
+    printf("Virtual Streaming Application (VIRSA)\n");
+
+    return 0;
 }
