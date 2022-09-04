@@ -36,8 +36,6 @@ if [ -f ${BUILD_PATH} ]; then
     rm -rf ${BUILD_PATH}
 fi
 
-echo "${BUILD_PATH}"
-
 # Generate the build files
 cmake -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" -B ${BUILD_PATH}
 
