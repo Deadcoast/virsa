@@ -13,8 +13,8 @@
 /**
  * Version info of VIRSA application.
  */
-constexpr uint64_t __VIRSA_VERSION_MAJOR__ = 1llu;
-constexpr uint64_t __VIRSA_MINOR_VERSION__ = 0llu;
-constexpr uint64_t __VIRSA_BUILD_NUMBER__ = 1llu;
+constexpr uint64_t __VIRSA_VERSION_MAJOR__ = 1lu;
+constexpr uint64_t __VIRSA_VERSION_MINOR__ = 0lu;
+constexpr uint64_t __VIRSA_BUILD_NUMBER__ = 0lu;
 
 #endif // BUILD_CONFIG_H

@@ -8,9 +8,16 @@
 #include <cstdint>
 #include <cstdio>
 
+// Build Configuration includes
+#include "buildConfig.h"
+
 int32_t main(int32_t argc, char **argv)
 {
-    printf("Virtual Streaming Application (VIRSA)\n");
+#ifdef BUILD_TYPE_DEBUG
+    printf("Virtual Streaming Application (VIRSA): %lu.%lu.%lu-dirty\n", __VIRSA_VERSION_MAJOR__, __VIRSA_VERSION_MINOR__, __VIRSA_BUILD_NUMBER__);
+#else
+    printf("Virtual Streaming Application (VIRSA): %lu.%lu.%lu\n", __VIRSA_VERSION_MAJOR__, __VIRSA_VERSION_MINOR__, __VIRSA_BUILD_NUMBER__);
+#endif
 
     return 0;
 }

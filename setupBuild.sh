@@ -6,8 +6,6 @@
 BUILD_TYPE=""
 BUILD_PATH="./build"
 
-echo "CWD: ${pwd}"
-
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in

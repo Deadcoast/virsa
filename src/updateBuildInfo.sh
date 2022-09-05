@@ -38,6 +38,6 @@ BUILD_NUMBER=$(grep "__${EXECUTABLE_NAME}_BUILD_NUMBER__" ${CONFIG_FILE} | sed "
 # Increment build number and replace it back in config file
 BUILD_NUMBER=$((${BUILD_NUMBER} + 1))
 
-sed -i "s/__${EXECUTABLE_NAME}_BUILD_NUMBER__ = [0-9]*llu/__${EXECUTABLE_NAME}_BUILD_NUMBER__ = ${BUILD_NUMBER}llu/g" ${CONFIG_FILE}
+sed -i "s/__${EXECUTABLE_NAME}_BUILD_NUMBER__ = [0-9]*lu/__${EXECUTABLE_NAME}_BUILD_NUMBER__ = ${BUILD_NUMBER}lu/g" ${CONFIG_FILE}
 
 exit 0
