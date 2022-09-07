@@ -14,7 +14,6 @@ network::IPv4::Socket::Socket(const char *address, uint16_t port, int32_t protoc
     socketConnected(false)
 {
     fileDescriptor = socket(AF_INET, SOL_SOCKET, protocol);
-    start();
 }
 
 network::IPv4::Socket::~Socket()
@@ -22,12 +21,14 @@ network::IPv4::Socket::~Socket()
     disconnect();
 }
 
-bool network::IPv4::Socket::disconnect()
+void network::IPv4::Socket::disconnect()
 {
     if (fileDescriptor != SOCKET_UNASSIGNED)
     {
         close(fileDescriptor);
     }
+
+    return;
 }
 
 bool network::IPv4::Socket::isConnected()

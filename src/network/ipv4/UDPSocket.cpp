@@ -10,7 +10,7 @@
 network::IPv4::UDPSocket::UDPSocket(const char *address, uint16_t port) :
     Socket(address, port, SOCK_DGRAM)
 {
-
+    start();
 }
 
 network::IPv4::UDPSocket::~UDPSocket()

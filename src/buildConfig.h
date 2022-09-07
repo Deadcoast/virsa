@@ -15,6 +15,6 @@
  */
 constexpr uint64_t __VIRSA_VERSION_MAJOR__ = 1lu;
 constexpr uint64_t __VIRSA_VERSION_MINOR__ = 0lu;
-constexpr uint64_t __VIRSA_BUILD_NUMBER__ = 0lu;
+constexpr uint64_t __VIRSA_BUILD_NUMBER__ = 1lu;
 
 #endif // BUILD_CONFIG_H

@@ -4,7 +4,8 @@
 if (${CMAKE_BUILD_TYPE} MATCHES "debug")
     add_subdirectory(googletest-release-1.12.1)
     enable_testing()
-    include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+    target_include_directories(${PROJECT_NAME} PRIVATE googletest-release-1.12.1/googletest/include)
+    target_include_directories(${PROJECT_NAME} PRIVATE googletest-release-1.12.1/googlemock/include)
 endif()
 
 # Boost linking
@@ -16,4 +17,5 @@ if (${Boost_FOUND})
     message(STATUS "Boost ${Boost_VERSION} has been found.")
     include_directories(${Boost_INCLUDE_DIR})
     add_compile_definitions(HAS_BOOST)
+    target_include_directories(${PROJECT_NAME} PRIVATE boost_1_80_0)
 endif()

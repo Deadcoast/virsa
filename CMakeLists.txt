@@ -10,6 +10,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
+include_directories(./)
+
 # VIRSA executable
 add_executable(${PROJECT_NAME} src/main.cpp)
 
@@ -23,11 +25,19 @@ if (${CMAKE_BUILD_TYPE} MATCHES "release")
         COMMENT "Updating build number for: ${PROJECT_NAME}"
         )
 else()
+    enable_testing()
     add_compile_definitions(BUILD_TYPE_DEBUG)
     message(STATUS "Not release build...skipping updating build number")
 endif()
 
-include_directories(src/)
+# Shorthand function for adding gtests
+function(add_gtest name source)
+    if (${CMAKE_BUILD_TYPE} MATCHES "debug")
+        add_executable(${name} ${source})
+        target_link_libraries(${name} GTest::gtest_main)
+        gtest_discover_tests(${name})
+    endif()
+endfunction()
 
-add_subdirectory(src)
 add_subdirectory(lib)
+add_subdirectory(src)

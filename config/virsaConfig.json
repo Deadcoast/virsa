@@ -1,0 +1,6 @@
+{
+    "role" : "Streamer",
+    "address" : "10.1.10.45",
+    "port" : 5300,
+    "output" : "HDMI"
+}

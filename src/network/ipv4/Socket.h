@@ -56,7 +56,7 @@ public:
     /**
      * Closes the socket.
      */
-    bool disconnect();
+    void disconnect();
 
     /**
      * Checks if socket is connected.
