@@ -8,8 +8,11 @@
 #include <cstdint>
 #include <cstdio>
 
-// Build Configuration includes
+#include "configuration/ConfigurationManager.h"
+
+// src includes
 #include "buildConfig.h"
+#include "VIRSA.h"
 
 int32_t main(int32_t argc, char **argv)
 {
@@ -18,6 +21,8 @@ int32_t main(int32_t argc, char **argv)
 #else
     printf("Virtual Streaming Application (VIRSA): %lu.%lu.%lu\n", __VIRSA_VERSION_MAJOR__, __VIRSA_VERSION_MINOR__, __VIRSA_BUILD_NUMBER__);
 #endif
+
+    configuration::ConfigurationManager *configManager = configuration::ConfigurationManager::getInstance();
 
     return 0;
 }

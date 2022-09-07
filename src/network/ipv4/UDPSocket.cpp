@@ -5,7 +5,7 @@
  */
 
 // Network includes
-#include "src/network/ipv4/UDPSocket.h"
+#include "network/ipv4/UDPSocket.h"
 
 network::IPv4::UDPSocket::UDPSocket(const char *address, uint16_t port) :
     Socket(address, port, SOCK_DGRAM)

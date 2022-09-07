@@ -12,7 +12,7 @@
 #include <cstdio>
 
 // Network includes
-#include "src/network/ipv4/Socket.h"
+#include "network/ipv4/Socket.h"
 
 namespace network
 {

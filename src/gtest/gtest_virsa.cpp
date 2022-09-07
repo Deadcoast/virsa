@@ -11,7 +11,7 @@
 #include <gtest/gtest.h>
 
 // VIRSA includes
-#include "src/VIRSA.h"
+#include "VIRSA.h"
 
 TEST(VIRSA_tests, sample_test)
 {

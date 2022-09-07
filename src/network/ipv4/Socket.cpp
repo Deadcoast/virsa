@@ -5,7 +5,7 @@
  */
 
 // Network includes
-#include "src/network/ipv4/Socket.h"
+#include "network/ipv4/Socket.h"
 
 network::IPv4::Socket::Socket(const char *address, uint16_t port, int32_t protocol) :
     fileDescriptor(SOCKET_UNASSIGNED),

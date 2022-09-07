@@ -10,6 +10,7 @@
 // System includes
 #include <cstdint>
 #include <cstdlib>
+#include <string>
 
 #ifdef __HAS_BOOST__
 // Boost includes
@@ -19,7 +20,7 @@
 #endif
 
 // src includes
-#include "src/VIRSA.h"
+#include "VIRSA.h"
 
 namespace configuration
 {
@@ -67,7 +68,7 @@ private:
      * 
      * @bool True if file was parsed successfully; False otherwise.
      */
-    static bool parseVirsaConfig();
+    bool parseVirsaConfig(const char *filename);
 
     /**
      * Role of VIRSA instance.
