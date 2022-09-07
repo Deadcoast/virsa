@@ -11,8 +11,12 @@
 #include <cstdint>
 #include <cstdlib>
 
+#ifdef __HAS_BOOST__
 // Boost includes
-#include <boost/json/src.hpp>
+#include <boost/json.hpp>
+#else
+#error ConfigurationManager required Boost.
+#endif
 
 // src includes
 #include "src/VIRSA.h"
