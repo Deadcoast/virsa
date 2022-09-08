@@ -12,13 +12,6 @@
 #include <cstdlib>
 #include <string>
 
-#ifdef __HAS_BOOST__
-// Boost includes
-#include <boost/json.hpp>
-#else
-#error ConfigurationManager required Boost.
-#endif
-
 // src includes
 #include "VIRSA.h"
 
@@ -64,26 +57,9 @@ private:
     ~ConfigurationManager();
 
     /**
-     * Parses VIRSA config file.
-     * 
-     * @bool True if file was parsed successfully; False otherwise.
+     * Instance of VIRSA application.
      */
-    bool parseVirsaConfig(const char *filename);
-
-    /**
-     * Role of VIRSA instance.
-     */
-    VIRSA::Role role;
-
-    /**
-     * IP address that virsa will send/receive network traffic to/from.
-     */
-    const char *destinationAddress;
-
-    /**
-     * Port that virsa will send/receive network traffic to/from.
-     */
-    uint16_t destinationPort;
+    VIRSA *virsa;
 
 };
 

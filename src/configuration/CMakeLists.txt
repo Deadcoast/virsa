@@ -2,8 +2,12 @@
 
 set(CMAKE_CURRENT_SOURCE_DIR ${CMAKE_SOURCE_DIR})
 
-set(SOURCES
-    ${SOURCES}
-    ConfigurationManager.cpp)
+set(HEADERS
+    ConfigurationManager.h
+)
 
-target_sources(${PROJECT_NAME} PUBLIC ${SOURCES})
+set(SOURCES
+    ConfigurationManager.cpp
+)
+
+target_sources(${PROJECT_NAME} PUBLIC ${HEADERS} ${SOURCES})

@@ -37,5 +37,6 @@ function(add_gtest name source)
     endif()
 endfunction()
 
+add_subdirectory(config)
 add_subdirectory(lib)
 add_subdirectory(src)
