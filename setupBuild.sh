@@ -6,6 +6,16 @@
 BUILD_TYPE=""
 BUILD_PATH="./build"
 
+function displayHelp
+{
+    echo "Sets up build tree for specified configuration."
+    echo ""
+    echo "Configurations:"
+    echo "-d | --debug => debug configuration (unit testing enabled)"
+    echo "-r | --release => release configuration (unit testing disabled)"
+    echo ""
+}
+
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -16,6 +26,10 @@ while [[ $# -gt 0 ]]; do
         -r|--release)
             BUILD_TYPE="release"
             shift # past argument
+            ;;
+        *) # Default
+            displayHelp
+            exit 1;
             ;;
     esac
 done
