@@ -9,9 +9,13 @@
 
 // System includes
 #include <cstdint>
+#include <cstdio>
 
 #ifdef _WIN32
-#error Socket library not currently supported on windows.
+// Network includes
+#include <WinSock2.h>
+#include <Windows.h>
+#include <inaddr.h>
 #else
 // Network includes
 #include <errno.h>
@@ -20,10 +24,13 @@
 #include <sys/socket.h>
 #endif // _WIN32
 
-namespace network
-{
+#ifdef _WIN32
+typedef int32_t socklen_t;
+typedef int32_t ssize_t;
+constexpr uint32_t INET_ADDRSTRLEN = 16;
+#endif // _WIN32
 
-namespace IPv4
+namespace network
 {
 
 /**
@@ -41,6 +48,11 @@ public:
     static constexpr int32_t SOCKET_UNASSIGNED = -1;
 
     /**
+     * Indicates a read/write error for socket.
+     */
+    static constexpr int32_t READ_WRITE_FAILURE = -1;
+
+    /**
      * Constructor for Socket.
      * 
      * @param address Destination IPv4 address of socket.
@@ -52,11 +64,6 @@ public:
      * Destructor for Socket.
      */
     ~Socket();
-
-    /**
-     * Closes the socket.
-     */
-    void disconnect();
 
     /**
      * Checks if socket is connected.
@@ -117,27 +124,14 @@ public:
 protected:
 
     /**
-     * Connects the socket to the destination.
-     * 
-     * @return True if socket successfully connected; False otherwise.
-     */
-    virtual bool start() = 0;
-
-    /**
      * File descriptor for the socket.
      */
     int32_t fileDescriptor;
 
     /**
-     * String representation of IPv4 address for socket
-     * destination.
+     * Destination information of socket.
      */
-    const char *address;
-
-    /**
-     * Destination port of socket.
-     */
-    uint16_t port;
+    struct sockaddr_in destination;
 
     /**
      * Flag whether socket is connected to destination.
@@ -145,8 +139,6 @@ protected:
     bool socketConnected;
 
 }; // Socket
-
-} // end namespace IPv4
 
 } // end namespace network
 

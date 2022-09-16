@@ -12,12 +12,9 @@
 #include <cstdio>
 
 // Network includes
-#include "network/ipv4/Socket.h"
+#include "network/Socket.h"
 
 namespace network
-{
-
-namespace IPv4
 {
 
 /**
@@ -39,21 +36,9 @@ public:
     /**
      * Destructor for UDP Socket.
      */
-    ~UDPSocket();
-
-protected:
-
-    /**
-     * Creates/connects the socket.
-     * 
-     * @return True if socket was created/connected successfully;
-     *         False otherwise.
-     */
-    virtual bool start();
+    virtual ~UDPSocket();
 
 };
-
-} // end namespace IPv4
 
 } // end namespace network
 

@@ -4,15 +4,16 @@
  * @file VIRSA.cpp
  */
 
-// Boost includes
-#ifdef __HAS_BOOST__
+/**
+ * Define to help boost JSON run on embedded systems
+ * (according to documentation).
+ */
 #define BOOST_JSON_STACK_BUFFER_SIZE 1024
+
+// Boost includes
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/json/src.hpp>
-#else
-#error Configuration Manager requires Boost.
-#endif
 
 // src includes
 #include "VIRSA.h"
