@@ -15,10 +15,10 @@ if (WIN32)
 endif()
 
 # CMake modules
-include(getSystemEndianness.cmake REQUIRED)
-include(setupBoost.cmake REQUIRED)
-include(setupGTest.cmake REQUIRED)
-include(updateBuildNumber.cmake REQUIRED)
+include(cmake/getSystemEndianness.cmake REQUIRED)
+include(cmake/setupBoost.cmake REQUIRED)
+include(cmake/setupGTest.cmake REQUIRED)
+include(cmake/updateBuildNumber.cmake REQUIRED)
 
 include_directories(src/)
 
