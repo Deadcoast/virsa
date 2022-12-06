@@ -1,10 +1,20 @@
 # VIRSA Dependencies
 
-## Boost 1.80.0
+## Boost 1.78.0
 
-Boost 1.80.0 is required for some items within VIRSA. The library is not tracked through version control due to it's size and binaries that may need to be built.
+VIRSA uses boost to outsource minor functionality. Boost can be downloaded [here](https://www.boost.org/users/history/version_1_78_0.html).
 
-Boost can be downloaded [here](https://www.boost.org/users/history/version_1_80_0.html).
+### Building Boost on Windows
+
+To build Boost on Windows:
+
+1. Run the `bootstrap.bat` script to configure boost to your environment
+
+2. Run the follwoing command depending on your target environment.
+
+    ```cmd
+    .\b2 toolset=msvc variant=release link=static threading=multi runtime-link=static
+    ```
 
 ## Google Test
 

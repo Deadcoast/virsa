@@ -13,7 +13,7 @@
     },
     {
       "name": "release",
-      "generator": "Ninja",
+      "generator": "Ninja Multi-Config",
       "configurationType": "Release",
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "${projectDir}\\build\\${name}",
