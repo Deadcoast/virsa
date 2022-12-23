@@ -1,6 +1,0 @@
-[submodule "src/network"]
-	path = src/network
-	url = git@github.com:Deadcoast/networkUtils.git
-[submodule "network"]
-	path = network
-	url = git@github.com:Deadcoast/cmake-modules.git
