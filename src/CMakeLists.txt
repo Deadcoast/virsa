@@ -1,14 +1,11 @@
 # src/CMakeLists.txt
 
-set(HEADERS
-    VIRSA.h
-)
-
 set(SOURCES
+    main.cpp
     VIRSA.cpp
 )
 
-target_sources(${PROJECT_NAME} PRIVATE ${HEADERS} ${SOURCES})
+target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
 
 add_subdirectory(configuration)
 add_subdirectory(network)

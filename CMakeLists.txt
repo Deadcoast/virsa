@@ -2,7 +2,10 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-project(virsa VERSION 1.0)
+include_directories(src/)
+
+project(virsa)
+add_executable(${PROJECT_NAME})
 
 # C++ Standard
 set(CMAKE_CXX_STANDARD 17)
@@ -14,16 +17,21 @@ if (WIN32)
     link_libraries(${ws2_32_LIBRARY_PATH})
 endif()
 
-# CMake modules
-include(cmake/getSystemEndianness.cmake REQUIRED)
+# Build lib directory
+add_subdirectory(lib)
+
+# Add Boost library
+set(Boost_ROOT "${CMAKE_CURRENT_LIST_DIR}/lib/boost_1_78_0")
+set(Boost_INCLUDE_DIR "${Boost_ROOT}")
+set(Boost_LIBRARY_DIR "${Boost_ROOT}/stage/lib")
 include(cmake/setupBoost.cmake REQUIRED)
-include(cmake/setupGTest.cmake REQUIRED)
-include(cmake/updateBuildNumber.cmake REQUIRED)
 
-include_directories(src/)
+# Add GTest library
+include(cmake/addGoogleTest.cmake REQUIRED)
 
-# VIRSA executable
-add_executable(${PROJECT_NAME} src/main.cpp)
-
+# Project directories
 add_subdirectory(config)
 add_subdirectory(src)
+
+# Link project libraries
+target_link_libraries(${PROJECT_NAME} PUBLIC NetworkUtils)

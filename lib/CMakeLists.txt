@@ -1,3 +1,5 @@
 # lib/CMakeLists.txt
 
-add_subdirectory(googletest-release-1.12.1)
+if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
+    add_subdirectory(googletest)
+endif()

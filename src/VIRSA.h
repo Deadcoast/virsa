@@ -13,7 +13,7 @@
 #include <cstdlib>
 
 // network includes
-#include "network/Socket.h"
+#include "network/sockets/ipv4/UDPSocket.h"
 
 class VIRSA
 {

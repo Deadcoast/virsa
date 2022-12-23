@@ -8,7 +8,7 @@
 #include "configuration/ConfigurationManager.h"
 
 // network includes
-#include "network/Socket.h"
+#include "network/sockets/ipv4/UDPSocket.h"
 
 configuration::ConfigurationManager *configuration::ConfigurationManager::getInstance()
 {

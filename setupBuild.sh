@@ -20,11 +20,11 @@ function displayHelp
 while [[ $# -gt 0 ]]; do
     case $1 in
         -d|--debug)
-            BUILD_TYPE="debug"
+            BUILD_TYPE="Debug"
             shift # past argument
             ;;
         -r|--release)
-            BUILD_TYPE="release"
+            BUILD_TYPE="Release"
             shift # past argument
             ;;
         *) # Default
