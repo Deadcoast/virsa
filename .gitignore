@@ -1,4 +1,5 @@
-# VSCode directories
+# Visual Studio & VSCode directories
+.vs
 .vscode
 
 # build directories

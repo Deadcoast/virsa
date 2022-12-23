@@ -5,7 +5,7 @@
  */
 
 // Configuration includes
-#include "ConfigurationManager.h"
+#include "configuration/ConfigurationManager.h"
 
 // network includes
 #include "network/Socket.h"
