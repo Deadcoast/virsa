@@ -23,5 +23,7 @@ int32_t main(int32_t argc, char **argv)
     printf("Virtual Streaming Application (VIRSA): %lu.%lu.%lu\n", __VIRSA_VERSION_MAJOR__, __VIRSA_VERSION_MINOR__, __VIRSA_BUILD_NUMBER__);
 #endif
 
+    VIRSA virsa("virsaConfig.json");
+
     return 0;
 }

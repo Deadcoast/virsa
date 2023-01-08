@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include <string>
 
 // network includes
 #include "network/sockets/ipv4/UDPSocket.h"
@@ -66,12 +67,22 @@ private:
     /**
      * Address of VIRSA counterpart to send/receive data to/from.
      */
-    char destinationAddress[INET_ADDRSTRLEN];
+    std::string destinationAddress;
 
     /**
-     * Port of VIRSA counterpart to send/receive data to/from.
+     * Port of VIRSA counterpart to send data to.
      */
-    uint16_t port;
+    uint16_t streamingSendPort;
+
+    /**
+     * Port to receive streaming data.
+     */
+    uint16_t streamingReceivePort;
+
+    /**
+     * Name of host network interface to use for network traffic.
+     */
+    std::string hostNetworkInterface;
 
     /**
      * Video interface to capture/output.
@@ -90,6 +101,11 @@ private:
      * Viewer => Audio interface to send audio data received from Streamer.
      */
     AudioInterface audioOutput;
+
+    /**
+     * Socket to send/receive video/audio data.
+     */
+    network::ipv4::UDPSocket *streamingSocket;
 
 };
 

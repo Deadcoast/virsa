@@ -10,6 +10,15 @@
  */
 #define BOOST_JSON_STACK_BUFFER_SIZE 1024
 
+// System includes
+#ifdef _WIN32
+#include <direct.h>
+#define getCurrentDirectory _getcwd
+#else
+#include <unistd.h>
+#define getCurrentDirectory getcwd
+#endif
+
 // Boost includes
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -20,19 +29,22 @@
 
 VIRSA::VIRSA(const char *configFile) :
     role(eNoRoleAssigned),
-    port(0),
+    streamingSendPort(0),
+    streamingReceivePort(0),
     videoOutput(eNoVideo),
-    audioOutput(eNoAudio)
+    audioOutput(eNoAudio),
+    streamingSocket(NULL)
 {
-    // Set all characters of IP address to null terminator (makes it an empty string)
-    memset(destinationAddress, '\0', sizeof(destinationAddress));
-
     parseConfigFile(configFile);
+
+    // Open socket(s)
+    streamingSocket = new network::ipv4::UDPSocket(destinationAddress.c_str(), streamingSendPort, hostNetworkInterface.c_str(), streamingReceivePort);
 }
 
 VIRSA::~VIRSA()
 {
-    
+    // Close socket(s)
+    delete streamingSocket;
 }
 
 void VIRSA::parseConfigFile(const char *configFile)
@@ -43,10 +55,23 @@ void VIRSA::parseConfigFile(const char *configFile)
         exit(EXIT_FAILURE);
     }
 
+    // Get absolute path to config file
+    const uint32_t MAX_FILEPATH_STRLEN = 500;
+    char buffer[MAX_FILEPATH_STRLEN];
+    getCurrentDirectory(buffer, MAX_FILEPATH_STRLEN);
+    std::string filepath(buffer);
+#ifdef _WIN32
+    filepath.append("\\");
+#else
+    filepath.append("/");
+#endif
+    filepath.append(configFile);
+
     try
     {
         boost::property_tree::ptree data;
-        boost::property_tree::read_json(configFile, data);
+
+        boost::property_tree::read_json(filepath, data);
 
         // VIRSA Role
         {
@@ -75,37 +100,34 @@ void VIRSA::parseConfigFile(const char *configFile)
 
         // Destination IPv4
         {
-            std::string raw = data.get<std::string>("address", "");
+            destinationAddress = data.get<std::string>("streamingIPv4", "");
 
-            if (raw.compare("") == 0)
+            if (destinationAddress.empty())
             {
                 fprintf(stderr, "Error: Failed to read VIRSA address from %s\n", configFile);
                 exit(EXIT_FAILURE);
             }
-
-            int32_t ipv4 = inet_addr(raw.c_str());
-
-            // Ensure that IPv4 is valid
-            if (ipv4 < 0)
-            {
-                fprintf(stderr, "Error: Invalid destination VIRSA address %s found in %s\n", raw.c_str(), configFile);
-                exit(EXIT_FAILURE);
-            }
-        
-            strcpy(destinationAddress, raw.c_str());
         }
 
-        // Destination Port
+        // streaming destination port
         {
-            int32_t raw = data.get<int32_t>("port", -1);
+            streamingSendPort = data.get<uint16_t>("streamingSendPort", 0);
+        }
 
-            if (raw == -1)
+        // Streaming receive port
+        {
+            streamingReceivePort = data.get<uint16_t>("streamingReceivePort", 0);
+        }
+
+        // Host Network Interface Name
+        {
+            hostNetworkInterface = data.get<std::string>("networkInterface", "");
+
+            if (hostNetworkInterface.empty())
             {
-                fprintf(stderr, "Error: Failed to find VIRSA port from %s\n", configFile);
+                fprintf(stderr, "Error: Failed to read VIRSA host network interface from %s\n", configFile);
                 exit(EXIT_FAILURE);
             }
-
-            port = static_cast<uint16_t>(raw);
         }
 
         // Video Output
@@ -152,7 +174,7 @@ void VIRSA::parseConfigFile(const char *configFile)
     }
     catch (boost::property_tree::json_parser_error &e)
     {
-        fprintf(stderr, "Error: Failed to parse file %s - %s\n", configFile, e.message().c_str());
+        fprintf(stderr, "Error: Failed to parse file %s - %s\n", filepath.c_str(), e.message().c_str());
         exit(EXIT_FAILURE);
     }
 }

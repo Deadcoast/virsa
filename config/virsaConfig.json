@@ -1,7 +1,9 @@
 {
     "role" : "Streamer",
-    "address" : "10.1.10.45",
-    "port" : 5300,
+    "streamingIPv4" : "10.0.0.100",
+    "streamingSendPort" : 5300,
+    "streamingReceivePort" : 0,
+    "networkInterface" : "Ethernet",
     "videoOutput" : "HDMI",
     "audioOutput" : "HDMI"
 }
