@@ -24,7 +24,7 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/json/src.hpp>
 
-// src includes
+// VIRSA includes
 #include "VIRSA.h"
 
 VIRSA::VIRSA(const char *configFile) :
@@ -33,18 +33,22 @@ VIRSA::VIRSA(const char *configFile) :
     streamingReceivePort(0),
     videoOutput(eNoVideo),
     audioOutput(eNoAudio),
-    streamingSocket(NULL)
+    videoCapturer(NULL)
 {
     parseConfigFile(configFile);
 
-    // Open socket(s)
-    streamingSocket = new network::ipv4::UDPSocket(destinationAddress.c_str(), streamingSendPort, hostNetworkInterface.c_str(), streamingReceivePort);
+    if (role == eStreamer)
+    {
+        videoCapturer = new Video::VideoCapturer(this);
+    }
 }
 
 VIRSA::~VIRSA()
 {
-    // Close socket(s)
-    delete streamingSocket;
+    if (videoCapturer)
+    {
+        delete videoCapturer;
+    }
 }
 
 void VIRSA::parseConfigFile(const char *configFile)
@@ -177,4 +181,39 @@ void VIRSA::parseConfigFile(const char *configFile)
         fprintf(stderr, "Error: Failed to parse file %s - %s\n", filepath.c_str(), e.message().c_str());
         exit(EXIT_FAILURE);
     }
+}
+
+VIRSA::Role VIRSA::getRole()
+{
+    return role;
+}
+
+std::string VIRSA::getDestinationAddress()
+{
+    return destinationAddress;
+}
+
+uint16_t VIRSA::getStreamingSendPort()
+{
+    return streamingSendPort;
+}
+
+uint16_t VIRSA::getStreamingReceivePort()
+{
+    return streamingReceivePort;
+}
+
+std::string VIRSA::getHostNetworkInterface()
+{
+    return hostNetworkInterface;
+}
+
+VIRSA::VideoInterface VIRSA::getVideoOutput()
+{
+    return videoOutput;
+}
+
+VIRSA::AudioInterface VIRSA::getAudioOutput()
+{
+    return audioOutput;
 }

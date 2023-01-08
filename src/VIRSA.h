@@ -16,6 +16,9 @@
 // network includes
 #include "network/sockets/ipv4/UDPSocket.h"
 
+// Video includes
+#include "video/VideoCapturer.h"
+
 class VIRSA
 {
 
@@ -51,6 +54,55 @@ public:
      * Destructor for VIRSA.
      */
     ~VIRSA();
+
+    /**
+     * Gets role of VIRSA application.
+     * 
+     * @return Configured role of VIRSA application.
+     */
+    Role getRole();
+
+    /**
+     * Gets IPv4 address of VISA peer.
+     * 
+     * @return Configured IPv4 address of streaming destination.
+     */
+    std::string getDestinationAddress();
+
+    /**
+     * Gets Streaming port of VISA peer.
+     * 
+     * @return Configured port to send streaming data to.
+     */
+    uint16_t getStreamingSendPort();
+
+    /**
+     * Gets streaming receive port.
+     * 
+     * @return Configured port to receive streaming data on.
+     */
+    uint16_t getStreamingReceivePort();
+
+    /**
+     * Gets Host Network interface.
+     * 
+     * @return Configured host network interface of VIRSA application.
+     */
+    std::string getHostNetworkInterface();
+
+    /**
+     * Get Video Output of VISA application.
+     * 
+     * @return Configured video output interface.
+     */
+    VideoInterface getVideoOutput();
+
+    /**
+     * Get audio output of VIRSA application.
+     * 
+     * @return Configured audio output interface.
+     */
+    AudioInterface getAudioOutput();
 
 private:
 
@@ -103,9 +155,9 @@ private:
     AudioInterface audioOutput;
 
     /**
-     * Socket to send/receive video/audio data.
+     * Instance for Video Capture (Streamer only).
      */
-    network::ipv4::UDPSocket *streamingSocket;
+    Video::VideoCapturer *videoCapturer;
 
 };
 
